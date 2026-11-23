@@ -1095,6 +1095,66 @@
     <script type="text/babel">
         const { useState, useEffect, useRef, useMemo, useCallback } = React;
 
+        // ==============================================================================
+        // BACKEND API SERVICE LAYER (Decoupled REST API Client)
+        // ==============================================================================
+        const DrawingAPI = {
+            getBaseUrl() {
+                if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                    if (window.location.port !== '8000') {
+                        return 'http://localhost:8000';
+                    }
+                }
+                return '';
+            },
+
+            async checkHealth() {
+                try {
+                    const base = this.getBaseUrl();
+                    const res = await fetch(`${base}/api/health`);
+                    return res.ok ? await res.json() : null;
+                } catch (_) {
+                    return null;
+                }
+            },
+
+            async loadSample() {
+                const base = this.getBaseUrl();
+                const res = await fetch(`${base}/api/load-sample`, { method: 'POST' });
+                if (!res.ok) throw new Error(`Server returned status ${res.status}`);
+                return await res.json();
+            },
+
+            async uploadPdf(file) {
+                const base = this.getBaseUrl();
+                const formData = new FormData();
+                formData.append('file', file, file.name);
+                const res = await fetch(`${base}/api/upload`, {
+                    method: 'POST',
+                    body: formData
+                });
+                if (!res.ok) throw new Error(`Server returned status ${res.status}`);
+                return await res.json();
+            },
+
+            async fetchSession(sessionId) {
+                const base = this.getBaseUrl();
+                const res = await fetch(`${base}/api/session/${encodeURIComponent(sessionId)}`);
+                if (!res.ok) throw new Error(`Server returned status ${res.status}`);
+                return await res.json();
+            },
+
+            exportJson(sessionId = 'sample') {
+                const base = this.getBaseUrl();
+                window.open(`${base}/api/export/json?session_id=${encodeURIComponent(sessionId)}`, '_blank');
+            },
+
+            exportCsv(sessionId = 'sample') {
+                const base = this.getBaseUrl();
+                window.open(`${base}/api/export/csv?session_id=${encodeURIComponent(sessionId)}`, '_blank');
+            }
+        };
+
         // Custom Toast Hook / State Manager
         function useToasts() {
             const [toasts, setToasts] = useState([]);
@@ -1140,7 +1200,7 @@
             const [progressStage, setProgressStage] = useState(0);
             const [isCanvasExpanded, setIsCanvasExpanded] = useState(false);
             const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
-            const [isDragging, setIsDragging] = useState(false);
+            const [isFileDragging, setIsFileDragging] = useState(false);
             const fileInputRef = useRef(null);
 
             // Table Sorting State
@@ -1204,23 +1264,20 @@
                 setIsProcessing(true);
                 setProgressStage(1);
                 try {
-                    const res = await fetch('/api/load-sample', { method: 'POST' });
-                    if (res.ok) {
-                        const json = await res.json();
-                        if (json.status === 'success') {
-                            setData(json.data);
-                            setImageB64(json.image_b64);
-                            setSessionId(json.session_id);
-                            setFilename(json.filename);
-                            setIsUploadOpen(false);
-                            if (!silent) {
-                                addToast('success', 'Sample Drawing Loaded', 'Loaded Housing V1 (0000044068) with 68 dimensions & GD&T.');
-                            }
-                            return;
+                    const json = await DrawingAPI.loadSample();
+                    if (json.status === 'success') {
+                        setData(json.data);
+                        setImageB64(json.image_b64);
+                        setSessionId(json.session_id);
+                        setFilename(json.filename);
+                        setIsUploadOpen(false);
+                        if (!silent) {
+                            addToast('success', 'Sample Drawing Loaded', 'Loaded Housing V1 (0000044068) with 68 dimensions & GD&T.');
                         }
+                        return;
                     }
                 } catch (err) {
-                    console.log('Backend API not responding, using static deployment fallback...');
+                    console.log('Backend API not responding, using static deployment fallback...', err);
                 }
 
                 // Netlify / Static Fallback
@@ -1248,19 +1305,19 @@
             const handleDragOver = (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                setIsDragging(true);
+                setIsFileDragging(true);
             };
 
             const handleDragLeave = (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                setIsDragging(false);
+                setIsFileDragging(false);
             };
 
             const handleDrop = (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                setIsDragging(false);
+                setIsFileDragging(false);
                 const files = e.dataTransfer?.files;
                 if (files && files.length > 0) {
                     processUploadedFile(files[0]);
@@ -1282,46 +1339,26 @@
                     setProgressStage(prev => Math.min(prev + 1, 5));
                 }, 400);
 
-                const formData = new FormData();
-                formData.append('file', file);
-
-                // Auto-detect server endpoints: direct /api/upload or localhost:8000
-                const apiHosts = ['/api/upload'];
-                if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-                    if (window.location.port !== '8000') {
-                        apiHosts.unshift('http://localhost:8000/api/upload');
-                    }
-                }
-
-                // 1. Try Live Python Backend API
-                for (const url of apiHosts) {
-                    try {
-                        const res = await fetch(url, {
-                            method: 'POST',
-                            body: formData
-                        });
-
-                        if (res.ok) {
-                            const json = await res.json();
-                            if (json.status === 'success' && json.data) {
-                                clearInterval(timer);
-                                setProgressStage(5);
-                                setData(json.data);
-                                if (json.image_b64) {
-                                    setImageB64(json.image_b64);
-                                }
-                                setSessionId(json.session_id || 'upload');
-                                setFilename(json.filename || file.name);
-                                setIsUploadOpen(false);
-                                setDeliverableSection('prototype');
-                                setIsProcessing(false);
-                                addToast('success', 'PDF Processed Successfully', `Extracted ${json.data.dimensions?.length || 0} dimensions from ${json.filename || file.name}.`);
-                                return;
-                            }
+                // 1. Try Live Python Backend API via DrawingAPI client
+                try {
+                    const json = await DrawingAPI.uploadPdf(file);
+                    if (json && json.status === 'success' && json.data) {
+                        clearInterval(timer);
+                        setProgressStage(5);
+                        setData(json.data);
+                        if (json.image_b64) {
+                            setImageB64(json.image_b64);
                         }
-                    } catch (netErr) {
-                        // Backend not reachable on this host, try next or fallback
+                        setSessionId(json.session_id || 'upload');
+                        setFilename(json.filename || file.name);
+                        setIsUploadOpen(false);
+                        setDeliverableSection('prototype');
+                        setIsProcessing(false);
+                        addToast('success', 'PDF Processed Successfully', `Extracted ${json.data.dimensions?.length || 0} dimensions from ${json.filename || file.name}.`);
+                        return;
                     }
+                } catch (netErr) {
+                    console.log('Backend API upload unreachable, using client-side dynamic fallback...', netErr);
                 }
 
                 // 2. Client-Side Dynamic PDF Extraction (Netlify / Static Hosting / Offline Fallback)
@@ -2567,15 +2604,15 @@
                                 </p>
 
                                 <div
-                                    className={`dropzone ${isDragging ? 'dragging' : ''}`}
+                                    className={`dropzone ${isFileDragging ? 'dragging' : ''}`}
                                     onClick={() => !isProcessing && fileInputRef.current?.click()}
                                     onDragOver={handleDragOver}
                                     onDragEnter={handleDragOver}
                                     onDragLeave={handleDragLeave}
                                     onDrop={handleDrop}
                                     style={{
-                                        border: isDragging ? '2px dashed #0284c7' : '2px dashed #38bdf8',
-                                        background: isDragging ? '#e0f2fe' : 'var(--bg-elevated)',
+                                        border: isFileDragging ? '2px dashed #0284c7' : '2px dashed #38bdf8',
+                                        background: isFileDragging ? '#e0f2fe' : 'var(--bg-elevated)',
                                         borderRadius: '12px',
                                         padding: '32px 20px',
                                         cursor: 'pointer',
@@ -2601,7 +2638,7 @@
                                     <div style={{ pointerEvents: 'none' }}>
                                         <div style={{ fontSize: '42px', marginBottom: '8px' }}>📄</div>
                                         <div style={{ fontWeight: 600, color: '#0284c7', fontSize: '15px' }}>
-                                            {isDragging ? 'Release to upload PDF now' : 'Drag & drop your PDF drawing here'}
+                                            {isFileDragging ? 'Release to upload PDF now' : 'Drag & drop your PDF drawing here'}
                                         </div>
                                         <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '4px' }}>
                                             or click anywhere inside this box to browse files

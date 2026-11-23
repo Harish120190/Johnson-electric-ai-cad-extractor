@@ -12,14 +12,83 @@
 ## 1. Quick Start
 
 ### Launch Client Presentation & Interview UI (React 18)
-To start the 3-part presentation workbench for presenting to the client or in an interview:
 
+The project features a **fully decoupled architecture** with separate Frontend and Backend API code:
+
+#### Option A: Run Full Stack (Single Unified Command)
 ```bash
 cd "/Users/hayaan/Downloads/Johnson Electric"
 ./start_ui.sh
-# Or manually: python3 app.py 8000
+# Starts backend + serves UI on http://localhost:8000 and opens default browser
 ```
-This starts the local web server at `http://localhost:8000` and automatically opens your browser.
+
+#### Option B: Run Frontend and Backend API Separately
+
+1. **Start Backend REST API:**
+   ```bash
+   cd "/Users/hayaan/Downloads/Johnson Electric"
+   ./start_backend.sh 8000
+   # Or: python3 -m backend.server --port 8000
+   ```
+   *Listening at:* `http://localhost:8000`  
+   *API Endpoints:*
+   - `GET  /api/health` — Health check & active sessions counter
+   - `POST /api/upload` — Multipart CAD drawing PDF upload & extraction pipeline
+   - `POST /api/load-sample` — Instant loading & caching of canonical sample drawing
+   - `GET  /api/session/:id` — Query specific extraction session data & Base64 image
+   - `GET  /api/export/json?session_id=:id` — Download structured JSON attachment
+   - `GET  /api/export/csv?session_id=:id` — Download dimensions CSV table
+
+2. **Start Frontend Web Application (in a separate terminal):**
+   ```bash
+   cd "/Users/hayaan/Downloads/Johnson Electric"
+   ./start_frontend.sh
+   # Or: cd frontend && npm run dev
+   ```
+   *Listening at:* `http://localhost:3000` (automatically proxies `/api` calls to `http://localhost:8000`).
+
+---
+
+### Project Architecture: Decoupled Frontend & Backend API
+
+```
+├── backend/                       # PURE BACKEND API PACKAGE
+│   ├── config.py                  # Port, directories, CORS, file limits
+│   ├── server.py                  # Threaded HTTP server entrypoint
+│   ├── api/
+│   │   ├── routes.py              # RESTful route dispatcher (GET/POST/OPTIONS)
+│   │   ├── controllers.py         # Business logic (Upload, Sample, Session, Export, Health)
+│   │   └── serializers.py         # JSON and CSV streaming serialization
+│   └── services/
+│       ├── session_service.py     # In-memory & disk session manager
+│       └── extraction_service.py  # Wrapper invoking core AI pipeline
+│
+├── frontend/                      # PURE FRONTEND APPLICATION
+│   ├── src/
+│   │   ├── config.js              # Environment-aware API Base URL configuration
+│   │   ├── services/
+│   │   │   └── api.js             # Modular API Client (uploadDrawing, loadSample, etc.)
+│   │   ├── components/            # Modular React 18 Components
+│   │   │   ├── Navbar.jsx         # Header bar, stats badges, upload modal trigger
+│   │   │   ├── Sidebar.jsx        # Navigation tabs, filter chips, series selectors
+│   │   │   ├── DrawingCanvas.jsx  # Interactive zoom/pan canvas with ROI overlays
+│   │   │   ├── DimensionsTable.jsx# Sortable, searchable engineering dimensions table
+│   │   │   ├── GdtCards.jsx       # ASME Y14.5 Feature Control Frame cards
+│   │   │   ├── UploadModal.jsx    # Drag-and-drop PDF upload modal
+│   │   │   └── DeliverablesViewer.jsx # Markdown deliverable viewer
+│   │   ├── App.jsx                # Main application orchestrator
+│   │   └── main.jsx               # Vite React 18 entrypoint
+│   ├── index.html                 # Standalone SPA with decoupled DrawingAPI client
+│   └── vite.config.js             # Vite dev server + reverse proxy to :8000
+│
+├── extractor/                     # CORE AI & COMPUTER VISION ENGINE
+│   ├── preprocessor.py            # Vector parsing, auto-deskew, DPI normalization
+│   ├── vision_engine.py           # Multi-modal OCR & symbol extraction
+│   ├── segmentation.py            # Functional ROI proposal (title block, views)
+│   ├── validator.py               # ISO 2768-mK & ASME Y14.5 sanity checks
+│   ├── spatial_linker.py          # Spatial knowledge graph builder
+│   └── models.py                  # Strongly-typed Pydantic dataclasses
+```
 
 **The 3-Section Presentation Sidebar includes:**
 1. **[1] Technical Solution Evaluation:**
