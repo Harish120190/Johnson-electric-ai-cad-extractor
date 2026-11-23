@@ -60,22 +60,32 @@ export default function UploadModal({
 
           <div
             className={`dropzone ${isFileDragging ? 'dragging' : ''}`}
-            onClick={() => !isProcessing && fileInputRef.current?.click()}
             onDragOver={handleDragOver}
             onDragEnter={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
+            style={{ position: 'relative', cursor: 'pointer' }}
           >
             <input
+              id="modal-pdf-file-input"
               type="file"
               ref={fileInputRef}
               onChange={handleFileChange}
               accept=".pdf,application/pdf"
-              style={{ display: 'none' }}
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                opacity: 0,
+                cursor: 'pointer',
+                zIndex: 2
+              }}
               disabled={isProcessing}
             />
 
-            <div className="dropzone-content">
+            <div className="dropzone-content" style={{ pointerEvents: 'none', position: 'relative', zIndex: 1 }}>
               <div className="dropzone-icon">📄</div>
               <div className="dropzone-main-text">
                 {isFileDragging ? 'Release to upload PDF now' : 'Drag & drop your PDF drawing here'}
@@ -84,17 +94,25 @@ export default function UploadModal({
                 or click anywhere inside this box to browse files
               </div>
 
-              <button
-                type="button"
+              <label
+                htmlFor="modal-pdf-file-input"
                 className="btn btn-primary browse-btn"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  fileInputRef.current?.click();
+                style={{
+                  pointerEvents: 'auto',
+                  position: 'relative',
+                  zIndex: 3,
+                  display: 'inline-block',
+                  marginTop: '14px',
+                  cursor: isProcessing ? 'not-allowed' : 'pointer'
                 }}
-                disabled={isProcessing}
+                onClick={(e) => {
+                  if (!isProcessing) {
+                    fileInputRef.current?.click();
+                  }
+                }}
               >
                 📁 Browse Files on Computer
-              </button>
+              </label>
 
               <div className="dropzone-hints">
                 Supported formats: Vector & Raster CAD PDFs (ANSI / ISO / ASME Y14.5M) • Up to 50MB
@@ -130,3 +148,4 @@ export default function UploadModal({
     </div>
   );
 }
+

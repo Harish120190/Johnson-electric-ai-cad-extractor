@@ -1,0 +1,140 @@
+{
+  "info": {
+    "_postman_id": "je-3d-drawing-extractor-api",
+    "name": "Johnson Electric - 3D Drawing AI Extractor API",
+    "description": "Collection of all REST API endpoints for Johnson Electric 3D Drawing AI Extractor.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Health Check",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "health"]
+        },
+        "description": "Returns API health status, service identifier, and active session count."
+      }
+    },
+    {
+      "name": "2. Load Canonical Sample Drawing",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/load-sample",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "load-sample"]
+        },
+        "description": "Retrieves or extracts structured data from the standard 3D Drawing Example.pdf (Housing V1)."
+      }
+    },
+    {
+      "name": "3. Upload PDF Drawing (Multipart)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "description": "Select any engineering drawing PDF file from your computer"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/upload",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "upload"]
+        },
+        "description": "Upload an engineering drawing PDF. The pipeline executes 5 stages: preprocessing, ROI layout, vision OCR, spatial graph, and sanity checks."
+      }
+    },
+    {
+      "name": "4. Get Session Data",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/session/sample",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "session", "sample"]
+        },
+        "description": "Fetch structured results and Base64 image for a session (replace 'sample' with your session_id)."
+      }
+    },
+    {
+      "name": "5. Export Structured JSON",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/export/json?session_id=sample",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "export", "json"],
+          "query": [
+            {
+              "key": "session_id",
+              "value": "sample",
+              "description": "ID of the extraction session (e.g., 'sample' or upload session ID)"
+            }
+          ]
+        },
+        "description": "Downloads the extracted structured drawing JSON attachment."
+      }
+    },
+    {
+      "name": "6. Export Dimensions CSV",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/export/csv?session_id=sample",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "export", "csv"],
+          "query": [
+            {
+              "key": "session_id",
+              "value": "sample",
+              "description": "ID of the extraction session (e.g., 'sample' or upload session ID)"
+            }
+          ]
+        },
+        "description": "Downloads the dimensions and tolerances table as a CSV attachment."
+      }
+    }
+  ]
+}
+

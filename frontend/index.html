@@ -1265,7 +1265,7 @@
                 setProgressStage(1);
                 try {
                     const json = await DrawingAPI.loadSample();
-                    if (json.status === 'success') {
+                    if (json && json.status === 'success') {
                         setData(json.data);
                         setImageB64(json.image_b64);
                         setSessionId(json.session_id);
@@ -1274,6 +1274,7 @@
                         if (!silent) {
                             addToast('success', 'Sample Drawing Loaded', 'Loaded Housing V1 (0000044068) with 68 dimensions & GD&T.');
                         }
+                        setIsProcessing(false);
                         return;
                     }
                 } catch (err) {
@@ -2605,7 +2606,6 @@
 
                                 <div
                                     className={`dropzone ${isFileDragging ? 'dragging' : ''}`}
-                                    onClick={() => !isProcessing && fileInputRef.current?.click()}
                                     onDragOver={handleDragOver}
                                     onDragEnter={handleDragOver}
                                     onDragLeave={handleDragLeave}
@@ -2623,10 +2623,20 @@
                                     }}
                                 >
                                     <input
+                                        id="pdf-upload-file-input"
                                         ref={fileInputRef}
                                         type="file"
                                         accept=".pdf,application/pdf"
-                                        style={{ display: 'none' }}
+                                        style={{
+                                            position: 'absolute',
+                                            top: 0,
+                                            left: 0,
+                                            width: '100%',
+                                            height: '100%',
+                                            opacity: 0,
+                                            cursor: 'pointer',
+                                            zIndex: 2
+                                        }}
                                         onChange={(e) => {
                                             if (e.target.files?.[0]) {
                                                 processUploadedFile(e.target.files[0]);
@@ -2635,7 +2645,7 @@
                                         }}
                                         disabled={isProcessing}
                                     />
-                                    <div style={{ pointerEvents: 'none' }}>
+                                    <div style={{ pointerEvents: 'none', position: 'relative', zIndex: 1 }}>
                                         <div style={{ fontSize: '42px', marginBottom: '8px' }}>📄</div>
                                         <div style={{ fontWeight: 600, color: '#0284c7', fontSize: '15px' }}>
                                             {isFileDragging ? 'Release to upload PDF now' : 'Drag & drop your PDF drawing here'}
@@ -2644,18 +2654,26 @@
                                             or click anywhere inside this box to browse files
                                         </div>
                                     </div>
-                                    <button
-                                        type="button"
+                                    <label
+                                        htmlFor="pdf-upload-file-input"
                                         className="btn btn-primary"
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            fileInputRef.current?.click();
+                                        style={{
+                                            position: 'relative',
+                                            zIndex: 3,
+                                            display: 'inline-block',
+                                            marginTop: '14px',
+                                            padding: '8px 20px',
+                                            fontSize: '13px',
+                                            cursor: isProcessing ? 'not-allowed' : 'pointer'
                                         }}
-                                        disabled={isProcessing}
-                                        style={{ marginTop: '14px', padding: '7px 18px', fontSize: '13px' }}
+                                        onClick={(e) => {
+                                            if (!isProcessing) {
+                                                fileInputRef.current?.click();
+                                            }
+                                        }}
                                     >
                                         📁 Browse Files on Computer
-                                    </button>
+                                    </label>
                                 </div>
 
                                 {isProcessing && (
