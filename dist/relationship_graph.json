@@ -1,0 +1,1287 @@
+{
+  "graph_summary": {
+    "total_nodes": 83,
+    "total_edges": 137,
+    "view_count": 8,
+    "feature_count": 6,
+    "dimension_count": 68,
+    "gdt_count": 1
+  },
+  "nodes": [
+    {
+      "id": "view_main_top",
+      "label": "Main Top View",
+      "type": "view",
+      "scale": "5:1",
+      "view_type": "ProjectionType.FIRST_ANGLE"
+    },
+    {
+      "id": "view_top_elevation",
+      "label": "Top Connector Elevation View",
+      "type": "view",
+      "scale": "5:1",
+      "view_type": "ProjectionType.FIRST_ANGLE"
+    },
+    {
+      "id": "view_detail_L",
+      "label": "Detail L",
+      "type": "view",
+      "scale": "10:1",
+      "view_type": "ProjectionType.DETAIL"
+    },
+    {
+      "id": "view_section_M_M",
+      "label": "Section M-M",
+      "type": "view",
+      "scale": "10:1",
+      "view_type": "ProjectionType.SECTION"
+    },
+    {
+      "id": "view_detail_N",
+      "label": "Detail N",
+      "type": "view",
+      "scale": "10:1",
+      "view_type": "ProjectionType.DETAIL"
+    },
+    {
+      "id": "view_section_W_W",
+      "label": "Section W-W",
+      "type": "view",
+      "scale": "5:1",
+      "view_type": "ProjectionType.SECTION"
+    },
+    {
+      "id": "view_section_T_T",
+      "label": "Section T-T",
+      "type": "view",
+      "scale": "5:1",
+      "view_type": "ProjectionType.SECTION"
+    },
+    {
+      "id": "view_isometric_3d",
+      "label": "Isometric 3D View",
+      "type": "view",
+      "scale": "Unscaled (Ref)",
+      "view_type": "ProjectionType.ISOMETRIC"
+    },
+    {
+      "id": "feat_bores",
+      "label": "Fastener Pilot Bores (Bore 1, Bore 2, Bore 3)",
+      "type": "feature",
+      "count": 3,
+      "feature_type": "screw_boss"
+    },
+    {
+      "id": "feat_snaps",
+      "label": "Perimeter Snap Latches (Snap 1, Snap 2, Snap 3, Snap 4)",
+      "type": "feature",
+      "count": 4,
+      "feature_type": "snap_fit"
+    },
+    {
+      "id": "feat_mounting_ears",
+      "label": "External Mounting Flanges / Ears",
+      "type": "feature",
+      "count": 4,
+      "feature_type": "mounting_flange"
+    },
+    {
+      "id": "feat_connector_pins",
+      "label": "Electrical Connector Terminals (Pin 1 to Pin 5)",
+      "type": "feature",
+      "count": 5,
+      "feature_type": "electrical_terminal"
+    },
+    {
+      "id": "feat_seal_lip",
+      "label": "Perimeter Sealing Gasket Lip",
+      "type": "feature",
+      "count": 1,
+      "feature_type": "weather_seal"
+    },
+    {
+      "id": "feat_branding",
+      "label": "Saia-Burgess Brand Emblem",
+      "type": "feature",
+      "count": 1,
+      "feature_type": "embossed_logo"
+    },
+    {
+      "id": "dim_500",
+      "label": "#500: 0.3",
+      "type": "dimension",
+      "category": "500 - 599",
+      "raw": "R0.3 \u00b1 0.09 (4x)"
+    },
+    {
+      "id": "dim_501",
+      "label": "#501: 5.0",
+      "type": "dimension",
+      "category": "500 - 599",
+      "raw": "[5]"
+    },
+    {
+      "id": "dim_502",
+      "label": "#502: 5.0",
+      "type": "dimension",
+      "category": "500 - 599",
+      "raw": "[5]"
+    },
+    {
+      "id": "dim_503",
+      "label": "#503: 2.5",
+      "type": "dimension",
+      "category": "500 - 599",
+      "raw": "[2.5]"
+    },
+    {
+      "id": "dim_504",
+      "label": "#504: 2.5",
+      "type": "dimension",
+      "category": "500 - 599",
+      "raw": "[2.5]"
+    },
+    {
+      "id": "dim_505",
+      "label": "#505: 0.685",
+      "type": "dimension",
+      "category": "500 - 599",
+      "raw": "(0.685) [\u2316 | 0.05 | Y3 (5X)/-]"
+    },
+    {
+      "id": "dim_506",
+      "label": "#506: 0.3",
+      "type": "dimension",
+      "category": "500 - 599",
+      "raw": "0.3 x 30\u00b0 (10x)"
+    },
+    {
+      "id": "dim_507",
+      "label": "#507: 0.21",
+      "type": "dimension",
+      "category": "500 - 599",
+      "raw": "0.21 x 30\u00b0 (10x)"
+    },
+    {
+      "id": "dim_508",
+      "label": "#508: 0.32",
+      "type": "dimension",
+      "category": "500 - 599",
+      "raw": "0.32 \u00b1 0.02 (5x)"
+    },
+    {
+      "id": "dim_509",
+      "label": "#509: 3.42",
+      "type": "dimension",
+      "category": "500 - 599",
+      "raw": "[3.42]"
+    },
+    {
+      "id": "dim_510",
+      "label": "#510: 5.3",
+      "type": "dimension",
+      "category": "500 - 599",
+      "raw": "5.3 \u00b1 0.05"
+    },
+    {
+      "id": "dim_511",
+      "label": "#511: 6.95",
+      "type": "dimension",
+      "category": "500 - 599",
+      "raw": "6.95 \u00b1 0.05 (2x)"
+    },
+    {
+      "id": "dim_512",
+      "label": "#512: 7.4",
+      "type": "dimension",
+      "category": "500 - 599",
+      "raw": "7.4 \u00b1 0.05"
+    },
+    {
+      "id": "dim_513",
+      "label": "#513: 13.325",
+      "type": "dimension",
+      "category": "500 - 599",
+      "raw": "13.325 \u00b1 0.08 / -"
+    },
+    {
+      "id": "dim_514",
+      "label": "#514: 1.2",
+      "type": "dimension",
+      "category": "500 - 599",
+      "raw": "1.2 \u00b1 0.05 / -"
+    },
+    {
+      "id": "dim_600",
+      "label": "#600: 15.2",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "15.2 \u00b1 0.2 / -"
+    },
+    {
+      "id": "dim_601",
+      "label": "#601: 9.2",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "9.2 \u00b1 0.2 / -"
+    },
+    {
+      "id": "dim_602",
+      "label": "#602: 0.3",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "0.3 \u00b1 0.2 / -"
+    },
+    {
+      "id": "dim_603",
+      "label": "#603: 26.3",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "26.3 \u00b1 0.2 / -"
+    },
+    {
+      "id": "dim_604",
+      "label": "#604: 54.3",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "54.3 \u00b1 0.2 / -"
+    },
+    {
+      "id": "dim_605",
+      "label": "#605: 62.8",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "62.8 \u00b1 0.2 / -"
+    },
+    {
+      "id": "dim_606",
+      "label": "#606: 68.8",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "68.8 \u00b1 0.2 / -"
+    },
+    {
+      "id": "dim_607",
+      "label": "#607: 47.59",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "47.59 \u00b1 0.2 / -"
+    },
+    {
+      "id": "dim_608",
+      "label": "#608: 36.5",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "36.5 \u00b1 0.2 / -"
+    },
+    {
+      "id": "dim_609",
+      "label": "#609: 34.0",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "34 \u00b1 0.2 / -"
+    },
+    {
+      "id": "dim_610",
+      "label": "#610: 17.0",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "17 \u00b1 0.2 / -"
+    },
+    {
+      "id": "dim_611",
+      "label": "#611: 0.0",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "0 \u00b1 0.1 / -"
+    },
+    {
+      "id": "dim_612",
+      "label": "#612: 9.5",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "9.5 \u00b1 0.2 / -"
+    },
+    {
+      "id": "dim_613",
+      "label": "#613: 15.1",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "(15.1)"
+    },
+    {
+      "id": "dim_614",
+      "label": "#614: 15.2",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "15.2 \u00b1 0.2 / -"
+    },
+    {
+      "id": "dim_615",
+      "label": "#615: 9.2",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "9.2 \u00b1 0.2"
+    },
+    {
+      "id": "dim_616",
+      "label": "#616: 4.69",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "4.69 \u00b1 0.2"
+    },
+    {
+      "id": "dim_617",
+      "label": "#617: 0.7",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "0.7 \u00b1 0.2"
+    },
+    {
+      "id": "dim_618",
+      "label": "#618: 41.8",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "41.8 \u00b1 0.2"
+    },
+    {
+      "id": "dim_619",
+      "label": "#619: 58.4",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "58.4 \u00b1 0.2 / -"
+    },
+    {
+      "id": "dim_620",
+      "label": "#620: 62.8",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "62.8 \u00b1 0.2 / -"
+    },
+    {
+      "id": "dim_621",
+      "label": "#621: 68.8",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "68.8 \u00b1 0.2 / -"
+    },
+    {
+      "id": "dim_622",
+      "label": "#622: 43.5",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "43.5 \u00b1 0.2 / -"
+    },
+    {
+      "id": "dim_623",
+      "label": "#623: 12.0",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "12 \u00b1 0.2 (4x) / -"
+    },
+    {
+      "id": "dim_624",
+      "label": "#624: 34.0",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "34 \u00b1 0.2 / -"
+    },
+    {
+      "id": "dim_625",
+      "label": "#625: 4.7",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "\u00d8 4.7 \u00b1 0.1 (4x) / -"
+    },
+    {
+      "id": "dim_626",
+      "label": "#626: 17.0",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "17 \u00b1 0.2 / -"
+    },
+    {
+      "id": "dim_627",
+      "label": "#627: 0.0",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "0 \u00b1 0.2 / -"
+    },
+    {
+      "id": "dim_628",
+      "label": "#628: 13.49",
+      "type": "dimension",
+      "category": "600 - 699",
+      "raw": "13.49 \u00b1 0.2 / -"
+    },
+    {
+      "id": "dim_700",
+      "label": "#700: 15.0",
+      "type": "dimension",
+      "category": "700 - 749",
+      "raw": "15 \u00b1 0.15 / -"
+    },
+    {
+      "id": "dim_701",
+      "label": "#701: 9.7",
+      "type": "dimension",
+      "category": "700 - 749",
+      "raw": "9.7 \u00b1 0.1 / -"
+    },
+    {
+      "id": "dim_702",
+      "label": "#702: 0.2",
+      "type": "dimension",
+      "category": "700 - 749",
+      "raw": "0.2 \u00b1 0.05 / -"
+    },
+    {
+      "id": "dim_703",
+      "label": "#703: 8.1",
+      "type": "dimension",
+      "category": "700 - 749",
+      "raw": "8.1 \u00b1 0.05 / -"
+    },
+    {
+      "id": "dim_704",
+      "label": "#704: 6.7",
+      "type": "dimension",
+      "category": "700 - 749",
+      "raw": "6.7\u00b0 \u00b1 2\u00b0 / -"
+    },
+    {
+      "id": "dim_705",
+      "label": "#705: 2.2",
+      "type": "dimension",
+      "category": "700 - 749",
+      "raw": "2.2 \u00b1 0.05 / -"
+    },
+    {
+      "id": "dim_706",
+      "label": "#706: 8.74",
+      "type": "dimension",
+      "category": "700 - 749",
+      "raw": "8.74 \u00b1 0.1 / -"
+    },
+    {
+      "id": "dim_707",
+      "label": "#707: 12.74",
+      "type": "dimension",
+      "category": "700 - 749",
+      "raw": "12.74 \u00b1 0.04 / -"
+    },
+    {
+      "id": "dim_708",
+      "label": "#708: 15.0",
+      "type": "dimension",
+      "category": "700 - 749",
+      "raw": "15 \u00b1 0.15 / -"
+    },
+    {
+      "id": "dim_709",
+      "label": "#709: 0.1",
+      "type": "dimension",
+      "category": "700 - 749",
+      "raw": "(0.1)"
+    },
+    {
+      "id": "dim_710",
+      "label": "#710: 0.85",
+      "type": "dimension",
+      "category": "700 - 749",
+      "raw": "(0.85)"
+    },
+    {
+      "id": "dim_711",
+      "label": "#711: 8.6",
+      "type": "dimension",
+      "category": "700 - 749",
+      "raw": "8.6"
+    },
+    {
+      "id": "dim_712",
+      "label": "#712: 120.0",
+      "type": "dimension",
+      "category": "700 - 749",
+      "raw": "120\u00b0"
+    },
+    {
+      "id": "dim_750",
+      "label": "#750: 4.4",
+      "type": "dimension",
+      "category": "750 - 759",
+      "raw": "4.4 \u00b1 0.1 (4x) / - Measured on Snap 1-4"
+    },
+    {
+      "id": "dim_751",
+      "label": "#751: 73.44",
+      "type": "dimension",
+      "category": "750 - 759",
+      "raw": "73.44\u00b0 (4x)"
+    },
+    {
+      "id": "dim_760",
+      "label": "#760: 5.3",
+      "type": "dimension",
+      "category": "760 - 769",
+      "raw": "5.3 \u00b1 0.05 (4x) / - Measured on Snap 1-4"
+    },
+    {
+      "id": "dim_761",
+      "label": "#761: 3.0",
+      "type": "dimension",
+      "category": "760 - 769",
+      "raw": "3 \u00b1 0.05 (4x) / - Measured on snap 1-4"
+    },
+    {
+      "id": "dim_762",
+      "label": "#762: 0.5",
+      "type": "dimension",
+      "category": "760 - 769",
+      "raw": "R0.5 \u00b1 0.2 (8x) / -"
+    },
+    {
+      "id": "dim_770",
+      "label": "#770: 2.6",
+      "type": "dimension",
+      "category": "770 - 779",
+      "raw": "2.6 \u00b1 0.1 (3x) / - Measured on bore 1-3"
+    },
+    {
+      "id": "dim_771",
+      "label": "#771: 0.9",
+      "type": "dimension",
+      "category": "770 - 779",
+      "raw": "0.9 \u00b1 0.2 / - All around"
+    },
+    {
+      "id": "dim_772",
+      "label": "#772: 1.5",
+      "type": "dimension",
+      "category": "770 - 779",
+      "raw": "1.5 \u00b1 0.1"
+    },
+    {
+      "id": "dim_773",
+      "label": "#773: 2.8",
+      "type": "dimension",
+      "category": "770 - 779",
+      "raw": "2.8 \u00b1 0.2 / - Measured on bore 1-3"
+    },
+    {
+      "id": "dim_774",
+      "label": "#774: 3.3",
+      "type": "dimension",
+      "category": "770 - 779",
+      "raw": "3.3 \u00b1 0.1 (3x) / - Measured on bore 1-3"
+    },
+    {
+      "id": "dim_775",
+      "label": "#775: 0.6",
+      "type": "dimension",
+      "category": "770 - 779",
+      "raw": "0.6x45\u00b0 Measured on bore 1-3"
+    },
+    {
+      "id": "gdt_01",
+      "label": "GD&T: position 0.05",
+      "type": "gdt_control",
+      "datums": [
+        "Y3"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "view_main_top",
+      "target": "view_top_elevation",
+      "relation": "cuts_or_details",
+      "label": "Cut/Detail: Top Connector Elevation View"
+    },
+    {
+      "source": "view_top_elevation",
+      "target": "view_detail_L",
+      "relation": "cuts_or_details",
+      "label": "Cut/Detail: Detail L"
+    },
+    {
+      "source": "view_detail_L",
+      "target": "view_section_M_M",
+      "relation": "cuts_or_details",
+      "label": "Cut/Detail: M-M"
+    },
+    {
+      "source": "view_top_elevation",
+      "target": "view_detail_N",
+      "relation": "cuts_or_details",
+      "label": "Cut/Detail: Detail N"
+    },
+    {
+      "source": "view_main_top",
+      "target": "view_section_W_W",
+      "relation": "cuts_or_details",
+      "label": "Cut/Detail: W-W"
+    },
+    {
+      "source": "view_main_top",
+      "target": "view_section_T_T",
+      "relation": "cuts_or_details",
+      "label": "Cut/Detail: T-T"
+    },
+    {
+      "source": "view_detail_L",
+      "target": "dim_500",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_500",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_detail_L",
+      "target": "dim_501",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_501",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_detail_L",
+      "target": "dim_502",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_502",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_detail_L",
+      "target": "dim_503",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_503",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_detail_L",
+      "target": "dim_504",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_504",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_detail_L",
+      "target": "dim_505",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_505",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_detail_L",
+      "target": "dim_506",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_506",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_detail_L",
+      "target": "dim_507",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_507",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_detail_L",
+      "target": "dim_508",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_508",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_detail_L",
+      "target": "dim_509",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_509",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_detail_L",
+      "target": "dim_510",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_510",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_detail_L",
+      "target": "dim_511",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_511",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_detail_L",
+      "target": "dim_512",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_512",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_detail_L",
+      "target": "dim_513",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_513",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_detail_L",
+      "target": "dim_514",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_600",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_601",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_mounting_ears",
+      "target": "dim_601",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_602",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_603",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_snaps",
+      "target": "dim_603",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_603",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_604",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_bores",
+      "target": "dim_604",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_604",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_605",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_mounting_ears",
+      "target": "dim_605",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_606",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_607",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_607",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_608",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_mounting_ears",
+      "target": "dim_608",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_608",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_609",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_609",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_610",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_snaps",
+      "target": "dim_610",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_611",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_612",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_bores",
+      "target": "dim_612",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_613",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_613",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_614",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_614",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_615",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_615",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_616",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_617",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_618",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_snaps",
+      "target": "dim_618",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_619",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_mounting_ears",
+      "target": "dim_619",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_620",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_mounting_ears",
+      "target": "dim_620",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_621",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_622",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_bores",
+      "target": "dim_622",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "feat_mounting_ears",
+      "target": "dim_622",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_622",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_623",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_mounting_ears",
+      "target": "dim_623",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_624",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_mounting_ears",
+      "target": "dim_624",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_625",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_mounting_ears",
+      "target": "dim_625",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_626",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_snaps",
+      "target": "dim_626",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_627",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_mounting_ears",
+      "target": "dim_627",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_main_top",
+      "target": "dim_628",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "view_section_M_M",
+      "target": "dim_700",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_700",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_section_M_M",
+      "target": "dim_701",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_701",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_section_M_M",
+      "target": "dim_702",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_702",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "feat_seal_lip",
+      "target": "dim_702",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_section_M_M",
+      "target": "dim_703",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_703",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_section_M_M",
+      "target": "dim_704",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_704",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_section_M_M",
+      "target": "dim_705",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "view_section_M_M",
+      "target": "dim_706",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "view_section_M_M",
+      "target": "dim_707",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "view_section_M_M",
+      "target": "dim_708",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_708",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_section_M_M",
+      "target": "dim_709",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "view_section_M_M",
+      "target": "dim_710",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_seal_lip",
+      "target": "dim_710",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_section_M_M",
+      "target": "dim_711",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "view_section_M_M",
+      "target": "dim_712",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_712",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_top_elevation",
+      "target": "dim_750",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_snaps",
+      "target": "dim_750",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_750",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_top_elevation",
+      "target": "dim_751",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "view_detail_N",
+      "target": "dim_760",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_snaps",
+      "target": "dim_760",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_detail_N",
+      "target": "dim_761",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_snaps",
+      "target": "dim_761",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_detail_N",
+      "target": "dim_762",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_snaps",
+      "target": "dim_762",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_section_W_W",
+      "target": "dim_770",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_bores",
+      "target": "dim_770",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_section_W_W",
+      "target": "dim_771",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_snaps",
+      "target": "dim_771",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "feat_seal_lip",
+      "target": "dim_771",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_section_W_W",
+      "target": "dim_772",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_bores",
+      "target": "dim_772",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_section_W_W",
+      "target": "dim_773",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_bores",
+      "target": "dim_773",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "dim_773",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_section_W_W",
+      "target": "dim_774",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_bores",
+      "target": "dim_774",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "view_section_W_W",
+      "target": "dim_775",
+      "relation": "contains_dimension"
+    },
+    {
+      "source": "feat_bores",
+      "target": "dim_775",
+      "relation": "constrained_by_dimension"
+    },
+    {
+      "source": "feat_connector_pins",
+      "target": "gdt_01",
+      "relation": "controlled_by_gdt"
+    }
+  ]
+}

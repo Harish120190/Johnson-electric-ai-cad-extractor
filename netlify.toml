@@ -1,0 +1,16 @@
+[build]
+  publish = "dist"
+  command = "mkdir -p dist && cp frontend/index.html dist/index.html && cp output/drawing_normalized.png dist/drawing_normalized.png 2>/dev/null || true && cp output/extracted_drawing_data.json dist/extracted_drawing_data.json 2>/dev/null || true"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
