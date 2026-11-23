@@ -1,6 +1,16 @@
 [build]
   publish = "dist"
-  command = "mkdir -p dist && cp frontend/index.html dist/index.html && cp output/drawing_normalized.png dist/drawing_normalized.png 2>/dev/null || true && cp output/extracted_drawing_data.json dist/extracted_drawing_data.json 2>/dev/null || true"
+  command = "mkdir -p dist && cp frontend/index.html dist/index.html && cp architecture_diagram.html dist/architecture.html && cp architecture_diagram.html dist/architecture_diagram.html && cp output/drawing_normalized.png dist/drawing_normalized.png 2>/dev/null || true && cp output/extracted_drawing_data.json dist/extracted_drawing_data.json 2>/dev/null || true"
+
+[[redirects]]
+  from = "/architecture.html"
+  to = "/architecture.html"
+  status = 200
+
+[[redirects]]
+  from = "/architecture"
+  to = "/architecture.html"
+  status = 200
 
 [[redirects]]
   from = "/*"
