@@ -49,7 +49,11 @@ def run_pipeline(pdf_path: str, output_dir: str):
     # 3. Vision Extraction Engine
     print("\n[Step 3/5] Multi-Modal Vision & Knowledge Extraction...")
     engine = VisionExtractionEngine()
-    extraction_result = engine.extract_from_drawing_crops(segmented_rois)
+    extraction_result = engine.extract_from_drawing_crops(
+        segmented_rois,
+        pdf_info=pdf_info,
+        pdf_path=pdf_path
+    )
     print(f"  • Metadata Extracted: Part '{extraction_result.metadata.title}' (ID: {extraction_result.metadata.drawing_id}, Rev: {extraction_result.metadata.revision})")
     print(f"  • Views Identified: {len(extraction_result.views)}")
     print(f"  • Features Identified: {len(extraction_result.features)}")
@@ -78,6 +82,15 @@ def run_pipeline(pdf_path: str, output_dir: str):
     result_dict = extraction_result.to_dict()
     result_dict["validation"] = validation_report
     result_dict["pdf_analysis"] = pdf_info
+    result_dict["segmented_rois"] = {
+        roi_id: {
+            "roi_id": r["roi_id"],
+            "description": r["description"],
+            "category": r["category"],
+            "norm_bbox": r["norm_bbox"]
+        }
+        for roi_id, r in segmented_rois.items()
+    }
 
     json_path = os.path.join(output_dir, "extracted_drawing_data.json")
     with open(json_path, "w", encoding="utf-8") as f:

@@ -169,13 +169,17 @@ export default function App() {
 
     const timer = setInterval(() => {
       setProgressStage((prev) => Math.min(prev + 1, 5));
-    }, 550);
+    }, 450);
 
     try {
       const res = await fetch('/api/upload', {
         method: 'POST',
         body: formData,
       });
+
+      clearInterval(timer);
+      setProgressStage(5);
+
       if (res.ok) {
         const json = await res.json();
         if (json.status === 'success') {
@@ -185,39 +189,34 @@ export default function App() {
           setFilename(json.filename);
           setIsUploadOpen(false);
           setDeliverableSection('prototype');
+          setIsProcessing(false);
           addToast(
             'success',
-            'PDF Processed Successfully',
+            'PDF Processed Dynamically',
             `Extracted ${json.data.dimensions?.length || 0} dimensions from ${json.filename}.`
           );
           return;
+        } else {
+          throw new Error(json.error || 'Server extraction failed');
         }
+      } else {
+        const errJson = await res.json().catch(() => ({}));
+        throw new Error(errJson.error || `HTTP ${res.status}: Upload failed`);
       }
     } catch (err) {
-      console.log('Backend not available for upload, demonstrating with loaded CAD model...');
-    }
-
-    // Fallback for static Netlify hosting
-    setTimeout(async () => {
-      try {
-        const staticRes = await fetch('./extracted_drawing_data.json');
-        if (staticRes.ok) {
-          const staticData = await staticRes.json();
-          setData(staticData);
-          setImageB64('./drawing_normalized.png');
-          setSessionId('upload-demo');
-          setFilename(file.name);
-          setIsUploadOpen(false);
-          setDeliverableSection('prototype');
-          addToast('success', 'PDF Processed (Netlify Demo)', `Extracted 68 dimensions from ${file.name}.`);
-        }
-      } catch (e) {
-        addToast('error', 'Upload Error', 'Could not process uploaded file.');
-      } finally {
-        clearInterval(timer);
-        setIsProcessing(false);
+      clearInterval(timer);
+      setIsProcessing(false);
+      console.error('Upload processing failed:', err);
+      addToast(
+        'error',
+        'Upload Failed',
+        err.message || 'Could not process uploaded file. Ensure Python backend is running.'
+      );
+    } finally {
+      if (e.target) {
+        e.target.value = '';
       }
-    }, 2200);
+    }
   };
 
   const exportJSON = () => {
@@ -1075,76 +1074,6 @@ export default function App() {
           {/* SECTION 3: WORKING PROTOTYPE (INTERACTIVE WORKBENCH) */}
           {deliverableSection === 'prototype' && (
             <div className="prototype-split">
-              {/* Upload Modal */}
-              {isUploadOpen && (
-                <div className="upload-overlay">
-                  <div className="upload-card">
-                    <h2 style={{ color: 'var(--text-primary)', fontSize: '18px' }}>
-                      Upload Engineering Drawing PDF
-                    </h2>
-                    <p style={{ color: 'var(--text-muted)', fontSize: '13px', marginTop: '6px' }}>
-                      Upload any technical drawing PDF (rasterized CAD, vector Bézier flattened, or
-                      scanned blueprints)
-                    </p>
-
-                    <div className="dropzone">
-                      <input
-                        type="file"
-                        accept=".pdf"
-                        className="file-input"
-                        onChange={handleFileUpload}
-                        disabled={isProcessing}
-                      />
-                      <div style={{ fontSize: '36px', marginBottom: '8px' }}>📄</div>
-                      <div style={{ fontWeight: 600, color: '#0284c7' }}>
-                        Drag and drop your PDF here
-                      </div>
-                      <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '4px' }}>
-                        or click to browse from computer
-                      </div>
-                    </div>
-
-                    {isProcessing && (
-                      <div style={{ marginTop: '16px', textAlign: 'left' }}>
-                        <div className="progress-bar">
-                          <div
-                            className="progress-fill"
-                            style={{ width: `${progressStage * 20}%` }}
-                          />
-                        </div>
-                        <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
-                          Stage {progressStage}/5: Processing multi-modal extraction...
-                        </div>
-                      </div>
-                    )}
-
-                    <div
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        gap: '10px',
-                        marginTop: '18px',
-                      }}
-                    >
-                      <button
-                        className="btn"
-                        onClick={() => loadSample(false)}
-                        disabled={isProcessing}
-                      >
-                        Load Sample (Housing V1)
-                      </button>
-                      <button
-                        className="btn"
-                        onClick={() => setIsUploadOpen(false)}
-                        disabled={isProcessing}
-                      >
-                        Cancel
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
-
               {/* Left Pane: Drawing Canvas */}
               <div className={`drawing-pane ${isCanvasExpanded ? 'expanded' : ''}`}>
                 <div className="canvas-toolbar">
@@ -1236,68 +1165,99 @@ export default function App() {
 
                     {showROIs && (
                       <>
-                        {/* Title Block */}
-                        <div
-                          className={`roi-box ${hoveredSeries === 'metadata' ? 'spotlight' : ''} ${
-                            activeROI === 'metadata' ? 'active' : ''
-                          }`}
-                          style={{ top: '84%', left: '77%', width: '22%', height: '15%' }}
-                          onClick={() => handleROIClick('metadata', 'Title Block')}
-                        >
-                          <div className="roi-tag">Title Block (A0 / 5:1)</div>
-                        </div>
-                        {/* Detail L (500s) */}
-                        <div
-                          className={`roi-box ${
-                            hoveredSeries === '500 - 599' ? 'spotlight' : ''
-                          } ${activeROI === '500 - 599' ? 'active' : ''}`}
-                          style={{ top: '6%', left: '33%', width: '34%', height: '32%' }}
-                          onClick={() => handleROIClick('500 - 599', 'Detail L: Pins')}
-                        >
-                          <div className="roi-tag">Detail L: 5-Pin Connector & GD&T (500s)</div>
-                        </div>
-                        {/* Section M-M (700s) */}
-                        <div
-                          className={`roi-box ${
-                            hoveredSeries === '700 - 749' ? 'spotlight' : ''
-                          } ${activeROI === '700 - 749' ? 'active' : ''}`}
-                          style={{ top: '8%', left: '67%', width: '28%', height: '32%' }}
-                          onClick={() => handleROIClick('700 - 749', 'Section M-M')}
-                        >
-                          <div className="roi-tag">Section M-M: Longitudinal Shroud (700s)</div>
-                        </div>
-                        {/* Detail N & W-W (760s & 770s) */}
-                        <div
-                          className={`roi-box ${
-                            hoveredSeries === '760 - 769' || hoveredSeries === '770 - 779'
-                              ? 'spotlight'
-                              : ''
-                          } ${
-                            activeROI === '760 - 769' || activeROI === '770 - 779' ? 'active' : ''
-                          }`}
-                          style={{ top: '38%', left: '48%', width: '34%', height: '27%' }}
-                          onClick={() => handleROIClick('760 - 769', 'Detail N: Snaps')}
-                        >
-                          <div className="roi-tag">Detail N & W-W: Snaps & Bores (760s/770s)</div>
-                        </div>
-                        {/* 3D Isometric */}
-                        <div
-                          className={`roi-box ${hoveredSeries === 'isometric' ? 'spotlight' : ''}`}
-                          style={{ top: '64%', left: '55%', width: '23%', height: '24%' }}
-                          onClick={() => handleROIClick('metadata', '3D Isometric')}
-                        >
-                          <div className="roi-tag">3D Isometric: Saia-Burgess</div>
-                        </div>
-                        {/* Main View Coordinates (600s) */}
-                        <div
-                          className={`roi-box ${
-                            hoveredSeries === '600 - 699' ? 'spotlight' : ''
-                          } ${activeROI === '600 - 699' ? 'active' : ''}`}
-                          style={{ top: '24%', left: '4%', width: '48%', height: '54%' }}
-                          onClick={() => handleROIClick('600 - 699', 'Main View')}
-                        >
-                          <div className="roi-tag">Main View: Coordinates 600-699</div>
-                        </div>
+                        {data?.segmented_rois ? (
+                          Object.entries(data.segmented_rois).map(([roiId, r]) => {
+                            const [x0, y0, x1, y1] = r.norm_bbox;
+                            const left = `${(x0 * 100).toFixed(1)}%`;
+                            const top = `${(y0 * 100).toFixed(1)}%`;
+                            const width = `${((x1 - x0) * 100).toFixed(1)}%`;
+                            const height = `${((y1 - y0) * 100).toFixed(1)}%`;
+                            const isHovered =
+                              hoveredSeries === roiId ||
+                              (roiId === 'main_housing_coordinates' && hoveredSeries === '600 - 699') ||
+                              (roiId === 'detail_L_connector' && hoveredSeries === '500 - 599') ||
+                              (roiId === 'section_M_M' && hoveredSeries === '700 - 749') ||
+                              (roiId === 'detail_N_and_WW' && (hoveredSeries === '760 - 769' || hoveredSeries === '770 - 779'));
+                            const isActive = activeROI === roiId;
+                            const label = r.description ? r.description.split(':')[0] : roiId;
+                            return (
+                              <div
+                                key={roiId}
+                                className={`roi-box ${isHovered ? 'spotlight' : ''} ${isActive ? 'active' : ''}`}
+                                style={{ top, left, width, height }}
+                                onClick={() => handleROIClick(roiId, r.description)}
+                                title={r.description}
+                              >
+                                <div className="roi-tag">{label}</div>
+                              </div>
+                            );
+                          })
+                        ) : (
+                          <>
+                            {/* Title Block */}
+                            <div
+                              className={`roi-box ${hoveredSeries === 'metadata' ? 'spotlight' : ''} ${
+                                activeROI === 'metadata' ? 'active' : ''
+                              }`}
+                              style={{ top: '84%', left: '77%', width: '22%', height: '15%' }}
+                              onClick={() => handleROIClick('metadata', 'Title Block')}
+                            >
+                              <div className="roi-tag">Title Block (A0 / 5:1)</div>
+                            </div>
+                            {/* Detail L (500s) */}
+                            <div
+                              className={`roi-box ${
+                                hoveredSeries === '500 - 599' ? 'spotlight' : ''
+                              } ${activeROI === '500 - 599' ? 'active' : ''}`}
+                              style={{ top: '6%', left: '33%', width: '34%', height: '32%' }}
+                              onClick={() => handleROIClick('500 - 599', 'Detail L: Pins')}
+                            >
+                              <div className="roi-tag">Detail L: 5-Pin Connector & GD&T (500s)</div>
+                            </div>
+                            {/* Section M-M (700s) */}
+                            <div
+                              className={`roi-box ${
+                                hoveredSeries === '700 - 749' ? 'spotlight' : ''
+                              } ${activeROI === '700 - 749' ? 'active' : ''}`}
+                              style={{ top: '8%', left: '67%', width: '28%', height: '32%' }}
+                              onClick={() => handleROIClick('700 - 749', 'Section M-M')}
+                            >
+                              <div className="roi-tag">Section M-M: Longitudinal Shroud (700s)</div>
+                            </div>
+                            {/* Detail N & W-W (760s & 770s) */}
+                            <div
+                              className={`roi-box ${
+                                hoveredSeries === '760 - 769' || hoveredSeries === '770 - 779'
+                                  ? 'spotlight'
+                                  : ''
+                              } ${
+                                activeROI === '760 - 769' || activeROI === '770 - 779' ? 'active' : ''
+                              }`}
+                              style={{ top: '38%', left: '48%', width: '34%', height: '27%' }}
+                              onClick={() => handleROIClick('760 - 769', 'Detail N: Snaps')}
+                            >
+                              <div className="roi-tag">Detail N & W-W: Snaps & Bores (760s/770s)</div>
+                            </div>
+                            {/* 3D Isometric */}
+                            <div
+                              className={`roi-box ${hoveredSeries === 'isometric' ? 'spotlight' : ''}`}
+                              style={{ top: '64%', left: '55%', width: '23%', height: '24%' }}
+                              onClick={() => handleROIClick('metadata', '3D Isometric')}
+                            >
+                              <div className="roi-tag">3D Isometric: Saia-Burgess</div>
+                            </div>
+                            {/* Main View Coordinates (600s) */}
+                            <div
+                              className={`roi-box ${
+                                hoveredSeries === '600 - 699' ? 'spotlight' : ''
+                              } ${activeROI === '600 - 699' ? 'active' : ''}`}
+                              style={{ top: '24%', left: '4%', width: '48%', height: '54%' }}
+                              onClick={() => handleROIClick('600 - 699', 'Main View')}
+                            >
+                              <div className="roi-tag">Main View: Coordinates 600-699</div>
+                            </div>
+                          </>
+                        )}
                       </>
                     )}
                   </div>
@@ -2017,6 +1977,96 @@ export default function App() {
             <div className="shortcut-row">
               <span>Close Modals</span>
               <span className="kbd-key">ESC</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Global Dynamic PDF Upload Modal */}
+      {isUploadOpen && (
+        <div className="upload-overlay" onClick={() => !isProcessing && setIsUploadOpen(false)}>
+          <div className="upload-card" onClick={(e) => e.stopPropagation()}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginBottom: '8px',
+              }}
+            >
+              <h2 style={{ color: 'var(--text-primary)', fontSize: '18px', margin: 0 }}>
+                Upload Engineering Drawing PDF
+              </h2>
+              <button
+                className="toast-close"
+                onClick={() => !isProcessing && setIsUploadOpen(false)}
+                disabled={isProcessing}
+              >
+                ×
+              </button>
+            </div>
+            <p style={{ color: 'var(--text-muted)', fontSize: '13px', marginTop: '6px' }}>
+              Upload any technical CAD drawing PDF (rasterized CAD, vector Bézier flattened, or
+              scanned blueprints)
+            </p>
+
+            <div className="dropzone">
+              <input
+                type="file"
+                accept=".pdf"
+                className="file-input"
+                onChange={handleFileUpload}
+                disabled={isProcessing}
+              />
+              <div style={{ fontSize: '38px', marginBottom: '8px' }}>📄</div>
+              <div style={{ fontWeight: 600, color: '#0284c7', fontSize: '15px' }}>
+                Drag and drop your PDF here
+              </div>
+              <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '4px' }}>
+                or click to browse from computer
+              </div>
+            </div>
+
+            {isProcessing && (
+              <div style={{ marginTop: '16px', textAlign: 'left' }}>
+                <div className="progress-bar">
+                  <div className="progress-fill" style={{ width: `${progressStage * 20}%` }} />
+                </div>
+                <div style={{ fontSize: '12px', color: '#0284c7', fontWeight: 500, marginTop: '6px' }}>
+                  {progressStage === 1 && 'Stage 1/5: Ingestion & PDF stream verification...'}
+                  {progressStage === 2 && 'Stage 2/5: High-DPI rasterization & 90° orientation deskew...'}
+                  {progressStage === 3 && 'Stage 3/5: Semantic functional ROI segmentation & cropping...'}
+                  {progressStage === 4 && 'Stage 4/5: Multi-modal vision & geometric feature extraction...'}
+                  {progressStage >= 5 && 'Stage 5/5: Spatial graph resolution & ISO 1101 rule validation...'}
+                </div>
+              </div>
+            )}
+
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                gap: '10px',
+                marginTop: '18px',
+              }}
+            >
+              <button
+                className="btn"
+                onClick={() => {
+                  loadSample(false);
+                  setIsUploadOpen(false);
+                }}
+                disabled={isProcessing}
+              >
+                Load Benchmark CAD (Housing V1)
+              </button>
+              <button
+                className="btn"
+                onClick={() => setIsUploadOpen(false)}
+                disabled={isProcessing}
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </div>

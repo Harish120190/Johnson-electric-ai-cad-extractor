@@ -48,10 +48,14 @@ class EngineeringDrawingValidator:
                     )
 
         # 3. GD&T Feature Control Frame Syntax Check
+        form_tolerances = {"flatness", "straightness", "circularity", "cylindricity"}
         for gdt in result.gdt_controls:
-            if gdt.tolerance_value > 0 and len(gdt.datum_references) > 0:
+            char_name = gdt.characteristic.value.lower() if hasattr(gdt.characteristic, "value") else str(gdt.characteristic).lower()
+            is_form = char_name in form_tolerances
+            if gdt.tolerance_value > 0 and (is_form or len(gdt.datum_references) > 0):
+                datums_str = f"Datums: {', '.join(gdt.datum_references)}" if gdt.datum_references else "Form Standard (No Datum Required)"
                 checks_passed.append(
-                    f"GD&T Frame Valid: [{gdt.characteristic.upper()} | {gdt.tolerance_value}mm | Datums: {', '.join(gdt.datum_references)}]"
+                    f"GD&T Frame Valid: [{gdt.characteristic.upper()} | {gdt.tolerance_value}mm | {datums_str}]"
                 )
             else:
                 warnings.append(f"GD&T Syntax Incomplete: Frame {gdt.id}")

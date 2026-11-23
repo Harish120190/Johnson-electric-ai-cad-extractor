@@ -1729,9 +1729,110 @@
   },
   "pdf_analysis": {
     "file_size": 428275,
+    "producer": "Microsoft: Print To PDF",
+    "author": "Mythili Arumugam",
+    "title": "second pdf.pdf",
+    "creation_date": "D:20250811101934+05'30'",
+    "sheet_size": "A4",
+    "mediabox": [
+      0.0,
+      0.0,
+      595.32001,
+      841.92004
+    ],
+    "page_count": 1,
     "has_embedded_fonts": false,
     "has_native_text_operators": true,
-    "is_vectorized_only": false,
-    "producer": "Microsoft: Print To PDF"
+    "is_vectorized_only": false
+  },
+  "segmented_rois": {
+    "title_block": {
+      "roi_id": "title_block",
+      "description": "Drawing Title Block, Revision, Scale, and Material Table",
+      "category": "metadata",
+      "norm_bbox": [
+        0.77,
+        0.84,
+        0.99,
+        0.99
+      ]
+    },
+    "detail_L_connector": {
+      "roi_id": "detail_L_connector",
+      "description": "Detail L (10:1): 5-Pin Connector, Pitch, Chamfers, and GD&T",
+      "category": "detail_view",
+      "norm_bbox": [
+        0.33,
+        0.06,
+        0.67,
+        0.38
+      ]
+    },
+    "section_M_M": {
+      "roi_id": "section_M_M",
+      "description": "Section M-M (10:1): Connector Longitudinal Cross-Section",
+      "category": "section_view",
+      "norm_bbox": [
+        0.67,
+        0.08,
+        0.95,
+        0.4
+      ]
+    },
+    "detail_N_and_WW": {
+      "roi_id": "detail_N_and_WW",
+      "description": "Detail N (10:1) & Section W-W (5:1): Snap-fit Latches & Screw Bosses",
+      "category": "detail_and_section",
+      "norm_bbox": [
+        0.48,
+        0.38,
+        0.82,
+        0.65
+      ]
+    },
+    "isometric_3d": {
+      "roi_id": "isometric_3d",
+      "description": "Isometric 3D View of Actuator Housing with Saia-Burgess Branding",
+      "category": "3d_visualization",
+      "norm_bbox": [
+        0.55,
+        0.64,
+        0.78,
+        0.88
+      ]
+    },
+    "section_T_T": {
+      "roi_id": "section_T_T",
+      "description": "Section T-T (5:1): Main Housing Transverse Cross-Section",
+      "category": "section_view",
+      "norm_bbox": [
+        0.12,
+        0.74,
+        0.42,
+        0.96
+      ]
+    },
+    "top_elevation_view": {
+      "roi_id": "top_elevation_view",
+      "description": "Top Connector Elevation & Datum Z Reference",
+      "category": "elevation_view",
+      "norm_bbox": [
+        0.06,
+        0.08,
+        0.45,
+        0.28
+      ]
+    },
+    "main_housing_coordinates": {
+      "roi_id": "main_housing_coordinates",
+      "description": "Main Top View (5:1) with Coordinate Rails 600-699, Bores 1-3, Snaps 1-4",
+      "category": "main_view",
+      "norm_bbox": [
+        0.04,
+        0.24,
+        0.52,
+        0.78
+      ]
+    }
   }
 }

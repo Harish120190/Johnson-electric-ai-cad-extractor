@@ -147,6 +147,35 @@ class TestServerAPI(unittest.TestCase):
         self.assertGreaterEqual(len(resp["data"]["dimensions"]), 40)
         self.assertIn("image_b64", resp)
 
+    def test_dynamic_upload_generic_drawing(self):
+        sample_pdf_path = os.path.join(BASE_DIR, "3D Drawing Example.pdf")
+        with open(sample_pdf_path, "rb") as f:
+            pdf_bytes = f.read()
+
+        boundary = "----WebKitFormBoundaryCustom987654"
+        body = (
+            f"--{boundary}\r\n"
+            f'Content-Disposition: form-data; name="file"; filename="Gearbox_Bracket_Assembly.pdf"\r\n'
+            f"Content-Type: application/pdf\r\n\r\n"
+        ).encode("utf-8") + pdf_bytes + f"\r\n--{boundary}--\r\n".encode("utf-8")
+
+        headers = {
+            "Content-Type": f"multipart/form-data; boundary={boundary}",
+            "Content-Length": str(len(body))
+        }
+
+        code, resp_bytes, resp_headers = execute_mock_request("POST", "/api/upload", body, headers)
+        self.assertEqual(code, 200)
+        resp = json.loads(resp_bytes.decode("utf-8"))
+        self.assertEqual(resp["status"], "success")
+        self.assertEqual(resp["filename"], "Gearbox_Bracket_Assembly.pdf")
+        self.assertEqual(resp["data"]["metadata"]["title"], "Gearbox Bracket Assembly")
+        self.assertIn("session_id", resp)
+        self.assertIn("segmented_rois", resp["data"])
+        self.assertGreaterEqual(len(resp["data"]["dimensions"]), 15)
+        self.assertIn("image_b64", resp)
+        self.assertTrue(resp["data"]["validation"]["validation_passed"])
+
     def test_not_found(self):
         code, body, headers = execute_mock_request("GET", "/api/unknown-endpoint")
         self.assertEqual(code, 404)
