@@ -62,6 +62,10 @@ class BackendApiHandler(BaseHTTPRequestHandler):
         # Static Assets & Frontend Integration
         elif path in ("/", "/index.html"):
             StaticController.serve_frontend(self)
+        elif path in ("/architecture.html", "/architecture_diagram.html", "/architect"):
+            StaticController.serve_static_file(
+                self, os.path.join(BASE_DIR, "architecture_diagram.html"), "text/html; charset=utf-8"
+            )
         elif path == "/demo.html":
             StaticController.serve_static_file(
                 self, os.path.join(FRONTEND_DIR, "demo.html"), "text/html; charset=utf-8"
@@ -93,3 +97,4 @@ class BackendApiHandler(BaseHTTPRequestHandler):
             SampleController.handle_sample(self)
         else:
             self.send_error(404, "Endpoint Not Found")
+
