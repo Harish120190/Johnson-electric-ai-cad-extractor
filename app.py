@@ -83,6 +83,15 @@ class DrawingAppHandler(BaseHTTPRequestHandler):
         else:
             self.send_error(404, "Not Found")
 
+    def do_OPTIONS(self):
+        """Handle CORS preflight requests."""
+        self.send_response(200)
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With")
+        self.send_header("Access-Control-Max-Age", "86400")
+        self.end_headers()
+
     def do_POST(self):
         parsed_url = urlparse(self.path)
         path = parsed_url.path
@@ -243,6 +252,7 @@ class DrawingAppHandler(BaseHTTPRequestHandler):
         data_bytes = json.dumps(session["result"], indent=2).encode("utf-8")
         self.send_response(200)
         self.send_header("Content-Type", "application/json")
+        self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Content-Disposition", f'attachment; filename="extracted_{session_id}.json"')
         self.send_header("Content-Length", str(len(data_bytes)))
         self.end_headers()
@@ -290,6 +300,7 @@ class DrawingAppHandler(BaseHTTPRequestHandler):
         csv_bytes = output.getvalue().encode("utf-8")
         self.send_response(200)
         self.send_header("Content-Type", "text/csv")
+        self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Content-Disposition", f'attachment; filename="dimensions_{session_id}.csv"')
         self.send_header("Content-Length", str(len(csv_bytes)))
         self.end_headers()
@@ -313,6 +324,7 @@ class DrawingAppHandler(BaseHTTPRequestHandler):
 
         self.send_response(200)
         self.send_header("Content-Type", mime_type)
+        self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Content-Length", str(len(data)))
         self.end_headers()
         self.wfile.write(data)
@@ -321,6 +333,9 @@ class DrawingAppHandler(BaseHTTPRequestHandler):
         body = json.dumps(data).encode("utf-8")
         self.send_response(status_code)
         self.send_header("Content-Type", "application/json")
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With")
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
