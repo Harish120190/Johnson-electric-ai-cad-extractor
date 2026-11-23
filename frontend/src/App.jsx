@@ -389,6 +389,16 @@ export default function App() {
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
           <span className="badge badge-success">3/3 Deliverables Complete</span>
 
+          <a
+            className="btn btn-sm btn-primary"
+            href="./demo.html"
+            target="_blank"
+            title="Open Interactive Demo Video & Walkthrough"
+            style={{ textDecoration: 'none' }}
+          >
+            🎥 Demo Video
+          </a>
+
           <button
             className="btn btn-sm"
             onClick={toggleTheme}
