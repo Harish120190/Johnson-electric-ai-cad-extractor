@@ -108,6 +108,36 @@ class TestBackendPackage(unittest.TestCase):
         self.assertIsNotNone(retrieved)
         self.assertEqual(retrieved["pdf_name"], "test.pdf")
 
+    def test_frontend_static_serving(self):
+        code, body, headers = execute_backend_request("GET", "/")
+        self.assertEqual(code, 200)
+        self.assertIn("text/html", headers)
+        self.assertIn(b"app.bundle.js", body)
+
+    def test_demo_html_serving(self):
+        code, body, headers = execute_backend_request("GET", "/demo.html")
+        self.assertEqual(code, 200)
+        self.assertIn("text/html", headers)
+        self.assertIn(b"Johnson Electric", body)
+        self.assertIn(b"Record 1080p WebM", body)
+
+    def test_bundle_asset_serving(self):
+        code, body, headers = execute_backend_request("GET", "/app.bundle.js")
+        self.assertEqual(code, 200)
+        self.assertIn("application/javascript", headers)
+        self.assertTrue(len(body) > 10000)
+
+    def test_stylesheet_asset_serving(self):
+        code, body, headers = execute_backend_request("GET", "/styles/app.css")
+        self.assertEqual(code, 200)
+        self.assertIn("text/css", headers)
+        self.assertIn(b"--bg-base", body)
+
+    def test_path_traversal_protection(self):
+        code, body, headers = execute_backend_request("GET", "/styles/../../backend/server.py")
+        self.assertIn(code, (403, 404))
+
 
 if __name__ == "__main__":
     unittest.main()
+

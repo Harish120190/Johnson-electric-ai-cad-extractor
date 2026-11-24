@@ -26,3 +26,4 @@ class ExtractionService:
     def process_sample():
         """Processes or returns the canonical sample PDF."""
         return run_pipeline(SAMPLE_PDF, OUTPUT_DIR)
+

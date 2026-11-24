@@ -625,7 +625,7 @@
     <!-- Top Header Navigation -->
     <header>
         <div class="brand-group">
-            <div class="brand-badge">⚡ ARCHIFY</div>
+            <div class="brand-badge">ARCHIFY</div>
             <div class="brand-title">
                 <h1>Johnson Electric — 3D Drawing AI Extraction Pipeline</h1>
                 <p>Complete Multi-Stage End-to-End Architectural Blueprint (ASME Y14.5 / ISO 2768-mK)</p>
@@ -634,12 +634,12 @@
 
         <div class="header-actions">
             <div class="search-box">
-                <span class="search-icon">🔍</span>
+                <span class="search-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
                 <input type="text" id="nodeSearch" placeholder="Search components, stages...">
             </div>
 
             <button class="btn" id="themeToggle" title="Toggle Light/Dark Theme">
-                🌓 <span id="themeText">Dark Mode</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg><span id="themeText">Dark Mode</span>
             </button>
 
             <button class="btn btn-primary" id="btnSimulate">
@@ -647,7 +647,7 @@
             </button>
 
             <a href="http://localhost:8000" target="_blank" class="btn" style="text-decoration: none;">
-                🚀 Open Web Workbench
+                Open Web Workbench
             </a>
         </div>
     </header>
@@ -665,8 +665,8 @@
         </div>
 
         <div class="viewport-controls">
-            <button class="btn" id="btnZoomIn">➕</button>
-            <button class="btn" id="btnZoomOut">➖</button>
+            <button class="btn" id="btnZoomIn">+</button>
+            <button class="btn" id="btnZoomOut">&minus;</button>
             <button class="btn" id="btnResetView">Fit Screen</button>
             <span class="zoom-level" id="zoomDisplay">100%</span>
         </div>
@@ -695,7 +695,7 @@
                     <div class="node-card" id="node_input_pdf" data-id="node_input_pdf" data-stage="1">
                         <div class="node-header">
                             <div class="node-icon-title">
-                                <div class="node-icon">📄</div>
+                                <div class="node-icon">PDF</div>
                                 <div>
                                     <div class="node-title">Vector CAD PDF</div>
                                     <div class="node-badge">Input Payload</div>
@@ -718,7 +718,7 @@
                     <div class="node-card" id="node_byte_analyzer" data-id="node_byte_analyzer" data-stage="1">
                         <div class="node-header">
                             <div class="node-icon-title">
-                                <div class="node-icon">🔬</div>
+                                <div class="node-icon">DPI</div>
                                 <div>
                                     <div class="node-title">PDF Stream Inspector</div>
                                     <div class="node-badge">PyMuPDF / sips</div>
@@ -741,7 +741,7 @@
                     <div class="node-card" id="node_normalized_canvas" data-id="node_normalized_canvas" data-stage="1">
                         <div class="node-header">
                             <div class="node-icon-title">
-                                <div class="node-icon">📐</div>
+                                <div class="node-icon">CAD</div>
                                 <div>
                                     <div class="node-title">Normalized Drawing</div>
                                     <div class="node-badge">High-Res Bitmap</div>
@@ -773,7 +773,7 @@
                     <div class="node-card" id="node_yolo_layout" data-id="node_yolo_layout" data-stage="2">
                         <div class="node-header">
                             <div class="node-icon-title">
-                                <div class="node-icon">🔲</div>
+                                <div class="node-icon">ROI</div>
                                 <div>
                                     <div class="node-title">Layout Segmentation</div>
                                     <div class="node-badge">YOLOv8 / LayoutLM</div>
@@ -796,7 +796,7 @@
                     <div class="node-card" id="node_roi_zones" data-id="node_roi_zones" data-stage="2">
                         <div class="node-header">
                             <div class="node-icon-title">
-                                <div class="node-icon">🗂️</div>
+                                <div class="node-icon">CROPS</div>
                                 <div>
                                     <div class="node-title">8 Functional Regions</div>
                                     <div class="node-badge">Cropped Crops</div>
@@ -828,7 +828,7 @@
                     <div class="node-card" id="node_ocr_engine" data-id="node_ocr_engine" data-stage="3">
                         <div class="node-header">
                             <div class="node-icon-title">
-                                <div class="node-icon">👁️</div>
+                                <div class="node-icon">VLM</div>
                                 <div>
                                     <div class="node-title">CAD Vision OCR Engine</div>
                                     <div class="node-badge">PaddleOCR + VLM</div>
@@ -851,7 +851,7 @@
                     <div class="node-card" id="node_gdt_parser" data-id="node_gdt_parser" data-stage="3">
                         <div class="node-header">
                             <div class="node-icon-title">
-                                <div class="node-icon">🎯</div>
+                                <div class="node-icon">GD&T</div>
                                 <div>
                                     <div class="node-title">ASME Y14.5 FCF Parser</div>
                                     <div class="node-badge">GD&T Parser</div>
@@ -883,7 +883,7 @@
                     <div class="node-card" id="node_spatial_linker" data-id="node_spatial_linker" data-stage="4">
                         <div class="node-header">
                             <div class="node-icon-title">
-                                <div class="node-icon">🕸️</div>
+                                <div class="node-icon">GRAPH</div>
                                 <div>
                                     <div class="node-title">Spatial Entity Linker</div>
                                     <div class="node-badge">NetworkX</div>
@@ -915,7 +915,7 @@
                     <div class="node-card" id="node_rule_verifier" data-id="node_rule_verifier" data-stage="5">
                         <div class="node-header">
                             <div class="node-icon-title">
-                                <div class="node-icon">🛡️</div>
+                                <div class="node-icon">RULES</div>
                                 <div>
                                     <div class="node-title">Rule Invariant Engine</div>
                                     <div class="node-badge">Zero Hallucination</div>
@@ -947,7 +947,7 @@
                     <div class="node-card" id="node_rest_api" data-id="node_rest_api" data-stage="6">
                         <div class="node-header">
                             <div class="node-icon-title">
-                                <div class="node-icon">⚡</div>
+                                <div class="node-icon">API</div>
                                 <div>
                                     <div class="node-title">REST API Server</div>
                                     <div class="node-badge">:8000 Endpoints</div>
@@ -970,7 +970,7 @@
                     <div class="node-card" id="node_react_workbench" data-id="node_react_workbench" data-stage="6">
                         <div class="node-header">
                             <div class="node-icon-title">
-                                <div class="node-icon">💻</div>
+                                <div class="node-icon">UI</div>
                                 <div>
                                     <div class="node-title">Interactive Workbench</div>
                                     <div class="node-badge">React 18 UI</div>
@@ -1389,7 +1389,7 @@
                 await new Promise(r => setTimeout(r, 650));
             }
 
-            simStatusText.textContent = "✨ Pipeline Run Succeeded: All 68 dimensions & GD&T verified with 100% confidence.";
+            simStatusText.textContent = "Pipeline Run Succeeded: All 68 dimensions & GD&T verified with 100% confidence.";
             btnSimulate.disabled = false;
             btnSimulate.textContent = "▶ Simulate Pipeline";
             simRunning = false;

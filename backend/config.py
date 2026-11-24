@@ -21,3 +21,4 @@ CORS_ORIGIN = "*"
 ALLOWED_METHODS = "GET, POST, OPTIONS, PUT, DELETE"
 ALLOWED_HEADERS = "Content-Type, Authorization, X-Requested-With, Accept"
 MAX_UPLOAD_SIZE = 50 * 1024 * 1024  # 50MB
+

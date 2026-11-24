@@ -11,7 +11,7 @@ import mimetypes
 from backend.services.session_service import SessionService
 from backend.services.extraction_service import ExtractionService
 from backend.api.serializers import Serializer
-from backend.config import BASE_DIR, FRONTEND_DIR, OUTPUT_DIR, UPLOADS_DIR
+from backend.config import BASE_DIR, FRONTEND_DIR, DIST_DIR, OUTPUT_DIR, UPLOADS_DIR
 
 class BaseController:
     @staticmethod
@@ -199,6 +199,29 @@ class StaticController(BaseController):
         cls.send_binary(handler, data, content_type)
 
     @classmethod
+    def serve_frontend_asset(cls, handler, rel_path):
+        """Safely serve frontend static assets (JS, CSS, fonts) with proper MIME headers."""
+        target_path = os.path.abspath(os.path.join(FRONTEND_DIR, rel_path))
+        if not target_path.startswith(os.path.abspath(FRONTEND_DIR)) or not os.path.isfile(target_path):
+            target_path = os.path.abspath(os.path.join(DIST_DIR, rel_path))
+            if not target_path.startswith(os.path.abspath(DIST_DIR)) or not os.path.isfile(target_path):
+                handler.send_error(404, "Asset Not Found")
+                return
+
+        mime_type, _ = mimetypes.guess_type(target_path)
+        if target_path.endswith(".js"):
+            mime_type = "application/javascript; charset=utf-8"
+        elif target_path.endswith(".css"):
+            mime_type = "text/css; charset=utf-8"
+        elif target_path.endswith(".json"):
+            mime_type = "application/json; charset=utf-8"
+        mime_type = mime_type or "application/octet-stream"
+
+        with open(target_path, "rb") as f:
+            data = f.read()
+        cls.send_binary(handler, data, mime_type)
+
+    @classmethod
     def serve_image(cls, handler, rel_path):
         full_path = os.path.join(OUTPUT_DIR, rel_path)
         if not os.path.exists(full_path):
@@ -211,3 +234,4 @@ class StaticController(BaseController):
         with open(full_path, "rb") as f:
             data = f.read()
         cls.send_binary(handler, data, mime_type)
+

@@ -21,3 +21,4 @@ echo "📤 Upload Endpoint:   http://localhost:$PORT/api/upload"
 echo "======================================================================"
 
 python3 -m backend.server --port "$PORT"
+

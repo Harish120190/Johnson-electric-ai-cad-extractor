@@ -7,6 +7,7 @@ import os
 import sys
 import json
 import argparse
+from typing import Optional
 from extractor.preprocessor import DrawingPreprocessor
 from extractor.segmentation import LayoutSegmenter
 from extractor.vision_engine import VisionExtractionEngine
@@ -15,7 +16,7 @@ from extractor.validator import EngineeringDrawingValidator
 from extractor.visualizer import InteractiveVisualizer
 
 
-def run_pipeline(pdf_path: str, output_dir: str):
+def run_pipeline(pdf_path: str, output_dir: str, api_key: Optional[str] = None):
     print("=" * 70)
     print("⚡ JOHNSON ELECTRIC - 3D ENGINEERING DRAWING EXTRACTION PIPELINE")
     print("=" * 70)
@@ -48,7 +49,7 @@ def run_pipeline(pdf_path: str, output_dir: str):
 
     # 3. Vision Extraction Engine
     print("\n[Step 3/5] Multi-Modal Vision & Knowledge Extraction...")
-    engine = VisionExtractionEngine()
+    engine = VisionExtractionEngine(api_key=api_key)
     extraction_result = engine.extract_from_drawing_crops(
         segmented_rois,
         pdf_info=pdf_info,
@@ -136,7 +137,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Extract structured data from 3D drawing PDF")
     parser.add_argument("--pdf", default="/Users/hayaan/Downloads/Johnson Electric/3D Drawing Example.pdf", help="Path to PDF")
     parser.add_argument("--output", default="/Users/hayaan/Downloads/Johnson Electric/output", help="Output directory")
+    parser.add_argument("--api-key", default=os.environ.get("GEMINI_API_KEY"), help="Optional Gemini / MLLM API key for live multimodal vision extraction")
     args = parser.parse_args()
 
-    run_pipeline(args.pdf, args.output)
+    run_pipeline(args.pdf, args.output, api_key=args.api_key)
 

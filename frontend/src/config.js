@@ -20,3 +20,4 @@ export const APP_CONFIG = {
   maxUploadBytes: 50 * 1024 * 1024,
   allowedMimeTypes: ['application/pdf'],
 };
+

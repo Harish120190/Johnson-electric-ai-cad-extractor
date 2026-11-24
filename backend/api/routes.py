@@ -73,6 +73,8 @@ class BackendApiHandler(BaseHTTPRequestHandler):
         elif path == "/favicon.ico":
             self.send_response(204)
             self.end_headers()
+        elif path in ("/app.bundle.js", "/app.js", "/styles/app.css") or path.startswith(("/styles/", "/assets/", "/js/")):
+            StaticController.serve_frontend_asset(self, path.lstrip("/"))
         elif path == "/drawing_normalized.png":
             StaticController.serve_static_file(
                 self, os.path.join(OUTPUT_DIR, "drawing_normalized.png"), "image/png"

@@ -45,3 +45,4 @@ class Serializer:
                 d.get("raw_string")
             ])
         return output.getvalue().encode("utf-8")
+

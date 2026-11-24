@@ -119,3 +119,4 @@ export default function DrawingCanvas({
     </div>
   );
 }
+
